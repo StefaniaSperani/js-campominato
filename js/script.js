@@ -55,14 +55,11 @@ function play() {
     punteggioMax = numCell - NUM_BOMB;
     // console.log(punteggioMax);
 
-    function clickOnCell(cella, numero) {
-        cella.removeEventListener('click', clickOnCell);
-        if (bombsPosition.includes(numero)) {
-            cella.classList.add('click-color-bomb');
-            endGame(); //collego la funzione all'evento della bomba
-
-        } else {
-            cella.classList.add('click-color');
+    function clickOnCell(){
+        if(bombsPosition.includes(num)){
+            cell.classList.add('click-color-bomb')
+        }else{
+            cell.classList.add('click-color');
             tentativiMax++
             console.log(tentativiMax)
             if(tentativiMax === punteggioMax){
@@ -80,7 +77,7 @@ function play() {
         cell.innerHTML = `
             <span>${num}</span>
         `;
-        cell.addEventListener('click', () => clickOnCell(cell, num));
+        cell.addEventListener('click', clickOnCell);
         return cell;
     }
 
