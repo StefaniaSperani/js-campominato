@@ -50,22 +50,26 @@ function play() {
             bombsPosition.push(bomb);
         }
     }
-    // console.log(bombsPosition);
+    console.log(bombsPosition);
 
     punteggioMax = numCell - NUM_BOMB;
     // console.log(punteggioMax);
 
     function clickOnCell(){
+        const span = this.querySelector('span');
+        const num = parseInt(span.textContent);
+        this.removeEventListener('click', clickOnCell);
         if(bombsPosition.includes(num)){
-            cell.classList.add('click-color-bomb')
+            this.classList.add('click-color-bomb');
+            endGame();
         }else{
-            cell.classList.add('click-color');
+            this.classList.add('click-color');
             tentativiMax++
             console.log(tentativiMax)
             if(tentativiMax === punteggioMax){
                 endGame();
             }
-        }
+        } 
     }
 
     function drawCell(num) {
@@ -100,11 +104,20 @@ function play() {
         //e al suo interno inserirò il messaggio, poi(riga 67)
         message.innerHTML = `
         <div class="red-text">Bomba! Hai perso!</div> `;
-
         const squares = document.getElementsByClassName('square');
         for (let i = 0; i < squares.length; i++) {
             squares[i].removeEventListener('click', clickOnCell);
-
+            let allBombs = i +1;
+            if(bombsPosition.includes(allBombs)){
+                squares[i].classList.add('click-color-bomb');
+            }
+        }
+        if(tentativiMax === punteggioMax){
+            message.innerHTML = `
+            <div class="red-text">Hai vinto!</div> `;
+        }else{
+            message.innerHTML = `
+            <div class="red-text">Bomba! Hai perso!</div> `;
         }
     }
 }
