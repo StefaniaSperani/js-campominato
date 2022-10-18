@@ -45,7 +45,14 @@ console.log('Inizia!');
             bombsPosition.push(bomb);
         }
     }
-    console.log(bombsPosition);
+    // console.log(bombsPosition);
+
+    function showClick(){
+        console.log(this.querySelector('span').innerText);
+        const num = num.querySelector('span').innerText;
+        this.classList.add('click-color');
+           
+    }
     
     function drawCell(num){
         const cellPerSide = Math.sqrt(numCell);
@@ -57,13 +64,7 @@ console.log('Inizia!');
             <span>${num}</span>
         `;
 
-        cell.addEventListener('click', function(){
-            if(bombsPosition.includes(num)){
-                cell.classList.add('click-color-bomb')
-            }else{
-                cell.classList.add('click-color');
-            } 
-        })
+        cell.addEventListener('click', showClick)
         return cell;
     }
 
