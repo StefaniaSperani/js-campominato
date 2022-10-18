@@ -64,3 +64,6 @@ main{
     color: var(--white);
     transition: all 250ms;
 }
+.red-text{
+    color: rgb(185, 19, 19);
+}

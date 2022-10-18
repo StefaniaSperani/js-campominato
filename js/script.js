@@ -63,7 +63,8 @@ console.log('Inizia!');
 
         cell.addEventListener('click', function(){
             if(bombsPosition.includes(num)){
-                cell.classList.add('click-color-bomb')
+                cell.classList.add('click-color-bomb');
+                endGame(); //e collego la funzione all'evento della bomba
             }else{
                 cell.classList.add('click-color');
             } 
@@ -81,5 +82,15 @@ console.log('Inizia!');
         playground.appendChild(grid);
     }
     drawGrid();
+
+    //1. Creo la funzione che al click della bomba
+    //inserirà un messaggio nell'html di sconfitta
+    function endGame(){
+        //quindi, creo la variabile che prende il div dall'html
+        let message = document.getElementById('message');
+        //e al suo interno inserirò il messaggio
+        message.innerHTML = `
+        <div class="red-text">Bomba! Hai perso!</div> `
+    }
 }
 playBtn.addEventListener('click', play);
