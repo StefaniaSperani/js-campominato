@@ -17,10 +17,12 @@ BONUS:
 
 const playBtn = document.getElementById('play');
 
-function play(){
-console.log('Inizia!');
+function play() {
+    console.log('Inizia!');
+    let tentativiMax = 0;
     const NUM_BOMB = 16;
     const bombsPosition = [];
+    let punteggioMax = 0;
 
     let numCell;
     const playground = document.getElementById('playground');
@@ -29,29 +31,47 @@ console.log('Inizia!');
     const levelHtml = document.getElementById('difficulty');
     const level = levelHtml.value;
 
-    switch(level){
+    switch (level) {
         case '1':
         default:
             numCell = 100 //facile
-        break;
+            break;
         case '2':
             numCell = 81; //medio
-        break;
+            break;
         case '3':
             numCell = 49; //difficile
-        break;
+            break;
     }
 
-    while(bombsPosition.length < NUM_BOMB){
+    while (bombsPosition.length < NUM_BOMB) {
         const bomb = randomNumber(1, numCell);
-        if(!bombsPosition.includes(bomb)){
+        if (!bombsPosition.includes(bomb)) {
             bombsPosition.push(bomb);
         }
     }
     // console.log(bombsPosition);
-    
-    
-    function drawCell(num){
+
+    punteggioMax = numCell - NUM_BOMB;
+    // console.log(punteggioMax);
+
+    function clickOnCell(cella, numero) {
+        cella.removeEventListener('click', clickOnCell);
+        if (bombsPosition.includes(numero)) {
+            cella.classList.add('click-color-bomb');
+            endGame(); //collego la funzione all'evento della bomba
+
+        } else {
+            cella.classList.add('click-color');
+            tentativiMax++
+            console.log(tentativiMax)
+            if(tentativiMax === punteggioMax){
+                endGame();
+            }
+        }
+    }
+
+    function drawCell(num) {
         const cellPerSide = Math.sqrt(numCell);
         const cell = document.createElement('div');
         cell.className = 'square';
@@ -60,22 +80,14 @@ console.log('Inizia!');
         cell.innerHTML = `
             <span>${num}</span>
         `;
-
-        cell.addEventListener('click', function(){
-            if(bombsPosition.includes(num)){
-                cell.classList.add('click-color-bomb');
-                endGame(); //e collego la funzione all'evento della bomba
-            }else{
-                cell.classList.add('click-color');
-            } 
-        })
+        cell.addEventListener('click', () => clickOnCell(cell, num));
         return cell;
     }
 
-    function drawGrid(){
+    function drawGrid() {
         const grid = document.createElement('div');
         grid.className = 'grid';
-        for(let i = 1; i <= numCell; i++){
+        for (let i = 1; i <= numCell; i++) {
             const cell = drawCell(i);
             grid.appendChild(cell);
         }
@@ -85,12 +97,27 @@ console.log('Inizia!');
 
     //1. Creo la funzione che al click della bomba
     //inserirà un messaggio nell'html di sconfitta
-    function endGame(){
+    function endGame() {
         //quindi, creo la variabile che prende il div dall'html
         let message = document.getElementById('message');
         //e al suo interno inserirò il messaggio, poi(riga 67)
         message.innerHTML = `
-        <div class="red-text">Bomba! Hai perso!</div> `
+        <div class="red-text">Bomba! Hai perso!</div> `;
+
+        const squares = document.getElementsByClassName('square');
+        for (let i = 0; i < squares.length; i++) {
+            squares[parseInt(i)].removeEventListener('click', clickOnCell);
+
+        }
     }
 }
 playBtn.addEventListener('click', play);
+
+
+// cell.removeEventListener('click', clickPippo);
+// const squares = document.querySelectorAll('.square');
+// for(let i = 0; i < squares.length; i++){
+//     squares[i].removeEventListener('click', clickOnCell);
+//     const num = squares[i].querySelector('span').innerText;
+//     console.log(num)
+// }
