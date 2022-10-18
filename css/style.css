@@ -1,0 +1,66 @@
+/* COMMON */
+
+:root {
+    --purple: #C20DFA;
+    --deep-purple: #720BDE;
+    --violet: #3400F6;
+    --blue: #0B16DE;
+    --azure: #0D58FA;
+    --white: #ffffff;
+}
+
+body{
+    background-color: var(--deep-purple);
+}
+
+header, 
+footer {
+    background-color: var(--purple);
+    height: 60px;
+}
+
+main{
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+/* HEADER */
+.img-bomba img{
+    width: 60px;
+}
+
+.btn-scegli{
+    background-color: var(--violet);
+    border: 1px solid var(--violet);
+    border-radius: 20px;
+    color: var(--white);
+    padding: 5px 10px;
+}
+
+/* MAIN */
+.grid{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    background-color: var(--azure);
+    box-shadow: 0px 0px 30px var(--white);
+    width: 500px;
+    height: 500px;
+    cursor: pointer;
+}
+.square{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+}
+.click-color{
+    background-color: var(--blue);
+    color: var(--white);
+    transition: all 250ms;
+}
+.click-color-bomb{
+    background-color: rgb(185, 19, 19);
+    color: var(--white);
+    transition: all 250ms;
+}
