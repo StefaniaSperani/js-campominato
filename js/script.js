@@ -88,7 +88,7 @@ console.log('Inizia!');
     function endGame(){
         //quindi, creo la variabile che prende il div dall'html
         let message = document.getElementById('message');
-        //e al suo interno inserirò il messaggio
+        //e al suo interno inserirò il messaggio, poi(riga 67)
         message.innerHTML = `
         <div class="red-text">Bomba! Hai perso!</div> `
     }
