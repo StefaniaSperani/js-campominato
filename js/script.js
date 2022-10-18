@@ -106,18 +106,9 @@ function play() {
 
         const squares = document.getElementsByClassName('square');
         for (let i = 0; i < squares.length; i++) {
-            squares[parseInt(i)].removeEventListener('click', clickOnCell);
+            squares[i].removeEventListener('click', clickOnCell);
 
         }
     }
 }
 playBtn.addEventListener('click', play);
-
-
-// cell.removeEventListener('click', clickPippo);
-// const squares = document.querySelectorAll('.square');
-// for(let i = 0; i < squares.length; i++){
-//     squares[i].removeEventListener('click', clickOnCell);
-//     const num = squares[i].querySelector('span').innerText;
-//     console.log(num)
-// }
